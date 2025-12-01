@@ -1,0 +1,28 @@
+
+.mySwiper {
+  width: 150vh;
+  height: 60vh;
+}
+
+.mySwiper .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiperMob {
+  width: 100vw;
+  height: 90vh;
+  margin-left: calc(-50vw + 50%);
+}
+
+.swiperMob .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}

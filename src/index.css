@@ -1,0 +1,35 @@
+@import "tailwindcss";
+*{
+    font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+.custom-input::placeholder {
+  color: white;
+  opacity: 1;
+}
+.ant-radio .ant-radio-inner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+
+.radio-red .ant-radio-inner {
+  background-color: red;
+  border: 2px solid red;
+}
+
+
+.radio-blue .ant-radio-inner {
+  background-color: #DB4444;
+  border: 2px solid #DB4444;
+}
+.static-dropdown {
+  position: relative !important;
+  inset: 0 !important;
+  transform: none !important;
+  width: 100% !important;
+}
+.custom-checkbox .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #DB4444;
+  border-color: #DB4444;
+}
