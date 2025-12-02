@@ -1,241 +1,121 @@
-import React from 'react'
-import { Table, Button, InputNumber, Input } from 'antd'
+import React, { useEffect } from 'react'
+import { Button, InputNumber, Input } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
-import img1 from '../images/mini (1).svg'
-import img2 from '../images/mini (2).svg'
 import BtnRed from '../components/btnRed'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteCart, getCart } from '../reducers/cart/cart'
 
 const Cart = () => {
-  const columns = [
-    {
-      title: 'Product',
-      dataIndex: 'product',
-      key: 'product',
-      render: (text, record) => (
-        <div className='flex items-center gap-4'>
-          <div className='w-16 h-16 bg-gray-200 rounded'>
-            <img src={record.image} alt={text} className="w-full h-full object-cover" />
-          </div>
-          <span>{text}</span>
-        </div>
-      )
-    },
-    {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
-      render: (price) => `$${price}`
-    },
-    {
-      title: 'Quantity',
-      dataIndex: 'quantity',
-      key: 'quantity',
-      render: (quantity) => (
-        <InputNumber 
-          min={1} 
-          max={99} 
-          defaultValue={quantity} 
-          style={{ width: 80 }}
-        />
-      )
-    },
-    {
-      title: 'Subtotal',
-      dataIndex: 'subtotal',
-      key: 'subtotal',
-      render: (subtotal) => `$${subtotal}`
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: () => (
-        <Button 
-          type="text" 
-          danger 
-          icon={<DeleteOutlined />}
-        />
-      )
-    }
-  ]
+  const dispatch = useDispatch()
+  const cartState = useSelector((state) => state.cart)
 
-  const data = [
-    {
-      key: '1',
-      product: 'LCD Monitor',
-      price: 650,
-      quantity: 1,
-      subtotal: 650,
-      image: img1
-    },
-    {
-      key: '2',
-      product: 'Hi Gamepad',
-      price: 550,
-      quantity: 2,
-      subtotal: 1100,
-      image: img2
-    }
-  ]
+  useEffect(() => {
+    dispatch(getCart())
+  }, [dispatch])
+
+  const data = cartState?.data || [];
 
   return (
     <>
-    <div className='hidden md:block'>
-    <main>
-      <div className='mt-10 flex items-center gap-[10px]'>
-        <p className='text-[grey]'>Home</p>
-        <p className='text-[grey]'>/</p>
-        <p>Cart</p>
-      </div>
-
-      <section className='mt-20 flex flex-col justify-between items-center gap-[10px]'>
-        <Table 
-          columns={columns} 
-          dataSource={data} 
-          pagination={false}
-          style={{ width: '100%' }}
-        />
-      </section>
-
-      <section className='flex items-center mt-10 justify-between'>
-        <button className='p-2 pr-10 pl-10 border rounded-[5px]'>Return To Shop</button>
-        <div className='flex items-center gap-[20px]'>
-          <button className='p-2 pr-10 pl-10 border rounded-[5px]'>Update Cart</button>
-          <button className='p-2 pr-10 pl-10 border border-[#DB4444] text-[#DB4444] rounded-[5px]'>Remove all</button>
-        </div>
-      </section>
-
-      <section className='flex mb-30 items-start mt-10 justify-between'>
-        <div className='flex items-center gap-[20px]'>
-          <Input placeholder='Coupon Code' style={{height:"45px", width:"300px"}}/>
-          <button className='p-2 pr-10 pl-10 border border-[#DB4444] text-[#DB4444] rounded-[5px]'>Apply</button>
-        </div>
-        <div className='rounded-[5px] border p-4 flex flex-col w-100 gap-[10px]'>
-          <h1 className='text-[20px]'>Cart Total</h1>
-          <div className='flex justify-between items-center'>
-            <p>Subtotal:</p>
-            <p>$1750</p>
+      <div>
+        <main>
+          <div className='mt-10 flex items-center gap-[10px]'>
+            <p className='text-[grey]'>Home</p>
+            <p className='text-[grey]'>/</p>
+            <p>Cart</p>
           </div>
-          <div className='flex justify-between items-center'>
-            <p>Shipping:</p>
-            <p>Free</p>
-          </div><br />
-          <div className='border w-full border-[#cac8c8]'></div><br />
-          <div className='flex justify-between items-center'>
-            <p className='font-bold'>Total:</p>
-            <p className='font-bold'>$1750</p>
-          </div>
-          <div className='mt-5 flex justify-center'>
-            <Link to='/check'>
-              <BtnRed text="Procees to checkout"/>
+
+          <section className='mt-10'>
+            <div className='border rounded-[5px] overflow-hidden'>
+  
+              <div className='grid grid-cols-5 bg-gray-100 p-4 font-bold'>
+                <div className='text-center'>Product</div>
+                <div className='text-center'>Price</div>
+                <div className='text-center'>Quantity</div>
+                <div className='text-center'>Subtotal</div>
+                <div className='text-center'>Action</div>
+              </div>
+
+
+              {data?.map((item) => (
+                <div key={item?.id} className='grid grid-cols-5 p-4 border-t items-center'>
+                  <div className='flex items-center gap-4'>
+                    <div className='w-20 h-20 bg-gray-100 rounded flex items-center justify-center'>
+                      <img 
+                        src={`http://37.27.29.18:8002/images/${item?.image}`} 
+                        alt={item?.productName} 
+                        className="w-full h-full object-contain p-2" 
+                      />
+                    </div>
+                    <span className='font-medium'>{item?.productName}</span>
+                  </div>
+                  
+                  <div className='text-center'>${item?.price}</div>
+                  
+                  <div className='text-center'>
+                    <InputNumber 
+                      min={1} 
+                      max={99} 
+                      defaultValue={item?.quantity} 
+                      style={{ width: 80 }}
+                    />
+                  </div>
+                  
+                  <div className='text-center'>${item?.price * item?.quantity}</div>
+                  
+                  <div className='text-center'>
+                    <Button 
+                      type="text" 
+                      danger 
+                      icon={<DeleteOutlined  />}
+                      onClick={() => dispatch(deleteCart(item.id))}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className='flex items-center mt-10 justify-between'>
+            <Link to="/">
+              <button className='p-3 pr-12 pl-12 border rounded-[5px] text-[16px]'>Return To Shop</button>
             </Link>
-          </div>
-        </div>
-      </section>
-    </main>
-    </div>
+            <div className='flex items-center gap-[20px]'>
+              <button className='p-3 pr-12 pl-12 border rounded-[5px] text-[16px]'>Update Cart</button>
+              <button className='p-3 pr-12 pl-12 border border-[#DB4444] text-[#DB4444] rounded-[5px] text-[16px]'>Remove all</button>
+            </div>
+          </section>
 
-
-    <div className='block md:hidden'>
-    <main>
-      <div className='mt-10 flex items-center gap-[10px]'>
-        <p className='text-[grey]'>Home</p>
-        <p className='text-[grey]'>/</p>
-        <p>Cart</p>
-      </div>
-
-      <section className='mt-6 border rounded-[5px] p-4'>
-        <div className='flex items-center gap-[15px]'>
-          <img src={img1} alt="LCD Monitor" className='w-20 h-20 object-cover rounded' />
-          <div className='flex-1'>
-            <h3 className='font-semibold text-[16px]'>LCD Monitor</h3>
-            <div className='flex items-center gap-[10px] mt-2'>
-              <p className='text-[#DB4444] font-bold'>$650</p>
-              <div className='flex items-center gap-[5px]'>
-                <button className='w-6 h-6 flex items-center justify-center border rounded text-[12px]'>-</button>
-                <span className='text-[14px]'>1</span>
-                <button className='w-6 h-6 flex items-center justify-center border rounded text-[12px]'>+</button>
+          <section className='flex mb-30 items-start mt-10 justify-between'>
+            <div className='flex items-center gap-[20px]'>
+              <Input placeholder='Coupon Code' style={{height:"50px", width:"350px", fontSize: "16px"}}/>
+              <button className='p-3 pr-12 pl-12 border border-[#DB4444] text-[#DB4444] rounded-[5px] text-[16px]'>Apply</button>
+            </div>
+            <div className='rounded-[5px] border p-6 flex flex-col w-120 gap-6'>
+              <h1 className='text-[24px] font-bold'>Cart Total</h1>
+              <div className='flex justify-between items-center'>
+                <p className='text-[18px]'>Subtotal:</p>
+                <p className='font-medium text-[18px]'>$1750</p>
+              </div>
+              <div className='flex justify-between items-center'>
+                <p className='text-[18px]'>Shipping:</p>
+                <p className='font-medium text-green-600 text-[18px]'>Free</p>
+              </div>
+              <div className='border w-full border-[#cac8c8]'></div>
+              <div className='flex justify-between items-center'>
+                <p className='font-bold text-[20px]'>Total:</p>
+                <p className='font-bold text-[20px]'>$1750</p>
+              </div>
+              <div className='mt-5 flex justify-center'>
+                <Link to='/check'>
+                  <BtnRed text="Proceed to checkout"/>
+                </Link>
               </div>
             </div>
-          </div>
-          <p className='font-bold text-[16px]'>$650</p>
-        </div>
-      </section>
-
-      <section className='mt-4 border rounded-[5px] p-4'>
-        <div className='flex items-center gap-[15px]'>
-          <img src={img2} alt="Hi Gamepad" className='w-20 h-20 object-cover rounded' />
-          <div className='flex-1'>
-            <h3 className='font-semibold text-[16px]'>Hi Gamepad</h3>
-            <div className='flex items-center gap-[10px] mt-2'>
-              <p className='text-[#DB4444] font-bold'>$550</p>
-              <div className='flex items-center gap-[5px]'>
-                <button className='w-6 h-6 flex items-center justify-center border rounded text-[12px]'>-</button>
-                <span className='text-[14px]'>2</span>
-                <button className='w-6 h-6 flex items-center justify-center border rounded text-[12px]'>+</button>
-              </div>
-            </div>
-          </div>
-          <p className='font-bold text-[16px]'>$1100</p>
-        </div>
-      </section>
-
-      <section className='flex flex-col mt-6 gap-[15px]'>
-        <button className='p-3 border border-[#DB4444] text-[#DB4444] rounded-[5px] text-center w-full font-medium'>
-          Return To Shop
-        </button>
-        <div className='flex gap-[10px]'>
-          <button className='p-3 border rounded-[5px] text-center flex-1 font-medium'>
-            Update Cart
-          </button>
-          <button className='p-3 border border-[#DB4444] text-[#DB4444] rounded-[5px] text-center flex-1 font-medium'>
-            Remove all
-          </button>
-        </div>
-      </section>
-
-      <section className='flex flex-col mb-20 mt-6 gap-[20px]'>
-        <div className='flex flex-col gap-[15px]'>
-          <h2 className='text-[18px] font-semibold'>Coupon Code</h2>
-          <div className='flex gap-[10px]'>
-            <Input 
-              placeholder='Enter coupon code' 
-              style={{
-                height: "45px", 
-                width: "100%",
-                fontSize: "14px"
-              }}
-            />
-            <button className='p-3 border border-[#DB4444] text-[#DB4444] rounded-[5px] whitespace-nowrap px-6 font-medium'>
-              Apply
-            </button>
-          </div>
-        </div>
-
-        <div className='rounded-[5px] border p-6 flex flex-col gap-[15px] w-full'>
-          <h1 className='text-[20px] font-semibold'>Cart Total</h1>
-          <div className='flex justify-between items-center'>
-            <p className='text-[#666]'>Subtotal:</p>
-            <p className='font-medium'>$1750</p>
-          </div>
-          <div className='flex justify-between items-center'>
-            <p className='text-[#666]'>Shipping:</p>
-            <p className='font-medium text-[#00FF66]'>Free</p>
-          </div>
-          <div className='border w-full border-[#e5e5e5] my-2'></div>
-          <div className='flex justify-between items-center'>
-            <p className='font-bold text-[18px]'>Total:</p>
-            <p className='font-bold text-[18px]'>$1750</p>
-          </div>
-          <div className='mt-4 flex justify-center'>
-            <Link to='/check' className='w-full'>
-              <BtnRed text="Proceed to checkout" className='w-full justify-center'/>
-            </Link>
-          </div>
-        </div>
-      </section>
-    </main>
-    </div>
+          </section>
+        </main>
+      </div>
     </>
   )
 }

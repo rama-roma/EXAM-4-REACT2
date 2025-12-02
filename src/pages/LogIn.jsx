@@ -1,7 +1,6 @@
 import { Input } from 'antd'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { SaveToken } from '../utils/token'
 import { useDispatch } from 'react-redux'
 import { loginUser } from '../reducers/auth/auth'
 const LogIn = () => {

@@ -1,52 +1,120 @@
-import React from 'react'
-import img1 from '../images/phon (1).svg'
-import img2 from '../images/phon (2).svg'
-import img3 from '../images/phon (3).svg'
-import img4 from '../images/phon (4).svg'
-import img5 from '../images/image 63.svg'
+import React, { useEffect } from 'react'
+import {  useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { getById } from '../reducers/products/product'
 import { Rate } from 'antd'
 import { HeartOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons'
 import { RefreshCcw, TruckElectric } from 'lucide-react'
 import Title from '../components/title'
 import Section5 from '../components/section5'
+
 const InfoProduct = () => {
+  const { id } = useParams();
+  const dataById = useSelector((state) => state.product.dataById);
+  const dispatch = useDispatch();
+
+  
+  useEffect(() => {
+    dispatch(getById(id));
+  }, [id]);
+
+
   return (
+    <>
+      <div className='hidden md:block'>
     <main>
       <div className='mt-10 flex items-center gap-[10px]'>
-        <p className='text-[grey]'>Account</p>
+        <p className='text-[grey]'>Home</p>
         <p className='text-[grey]'>/</p>
-        <p className='text-[grey]'>Gaming</p>
+        <p className='text-[grey]'>Products</p>
         <p className='text-[grey]'>/</p>
-        <p>Havic HV G-92 Gamepad</p>
+        <p>{dataById?.productName}</p>
       </div>
 
       <section className='mt-10 flex items-center justify-between'>
         <div className='flex flex-col items-center gap-[10px]'>
           <article className='p-4 w-40 h-40 flex items-center justify-center bg-[#e9e6e6b0]'>
-            <img src={img4} alt="" />
+            {dataById?.images?.map((e)=>{
+              return (
+                <div>
+                  <img 
+                    src={`http://37.27.29.18:8002/images/${e.images}`} 
+                    alt={dataById?.productName} 
+                    className="w-full h-full object-contain"
+                  />
+
+                </div>
+              )
+            })}
           </article>
           <article className='p-4 w-40 h-40 flex items-center justify-center bg-[#e9e6e6b0]'>
-            <img src={img2} alt="" />
+            {dataById?.images?.map((e)=>{
+              return (
+                <div>
+                  <img 
+                    src={`http://37.27.29.18:8002/images/${e.images}`} 
+                    alt={dataById?.productName} 
+                    className="w-full h-full object-contain"
+                  />
+
+                </div>
+              )
+            })}
           </article>
           <article className='p-4 w-40 h-40 flex items-center justify-center bg-[#e9e6e6b0]'>
-            <img src={img3} alt="" />
+            {dataById?.images?.map((e)=>{
+              return (
+                <div>
+                  <img 
+                    src={`http://37.27.29.18:8002/images/${e.images}`} 
+                    alt={dataById?.productName} 
+                    className="w-full h-full object-contain"
+                  />
+
+                </div>
+              )
+            })}
           </article>
           <article className='p-4 w-40 h-40 flex items-center justify-center bg-[#e9e6e6b0]'>
-            <img src={img1} alt="" />
+            {dataById?.images?.map((e)=>{
+              return (
+                <div>
+                  <img 
+                    src={`http://37.27.29.18:8002/images/${e.images}`} 
+                    alt={dataById?.productName} 
+                    className="w-full h-full object-contain"
+                  />
+
+                </div>
+              )
+            })}
           </article>
         </div>
-        <div className='bg-[#e9e6e6b0] p-10 pt-44 pb-44 pl-20 pr-20'>
-          <img src={img5} alt="" />
+        
+        <div className='bg-[#e9e6e6b0] p-10 w-150 h-165'>
+            {dataById?.images?.map((e)=>{
+              return (
+                <div>
+                  <img 
+                    src={`http://37.27.29.18:8002/images/${e.images}`} 
+                    alt={dataById?.productName} 
+                    className="w-full h-full object-contain"
+                  />
+
+                </div>
+              )
+            })}
         </div>
+        
         <div className='flex flex-col items-start gap-[30px] w-110'>
-          <h1 className='text-[30px]'>Havic HV G-92 Gamepad</h1>
+          <h1 className='text-[30px]'>{dataById?.productName}</h1>
           <div className='flex items-center gap-[20px]'>
-            <Rate/>
-            <p className='text-[grey]'>(150 Reviews)</p>
+            <Rate defaultValue={dataById?.rating || 4} />
+            <p className='text-[grey]'>({dataById?.reviewCount || 150} Reviews)</p>
             <p className='text-[#12CA5B]'>In Stock</p>
           </div>
-          <p className='text-[20px] font-bold'>$192.00</p>
-          <p className='text-[grey]'>PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive.</p>
+          <p className='text-[20px] font-bold'>${dataById?.price}</p>
+          <p className='text-[grey]'>{dataById?.description || 'No description available'}</p>
           <div className='border border-[#d1cfcf] w-full'></div>
           <div className='flex items-center gap-[10px]'>
             <p>Colours:</p>
@@ -82,7 +150,7 @@ const InfoProduct = () => {
             </div>
             <div className='border w-full border-[#c0bcbc]'></div>
             <div className='flex items-center justify-between w-110 gap-[10px]'>
-              <RefreshCcw  size={50} />
+              <RefreshCcw size={50} />
               <div className='flex flex-col items-start relative left-[-60px]'>
                 <h1 className='font-bold'>Return Delivery</h1>
                 <p>Free 30 Days Delivery Returns. Details</p>
@@ -99,6 +167,8 @@ const InfoProduct = () => {
         <Section5/>
       </section>
     </main>
+      </div>
+    </>
   )
 }
 

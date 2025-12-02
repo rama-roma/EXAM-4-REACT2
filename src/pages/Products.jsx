@@ -110,9 +110,9 @@ const Products = () => {
 
         <div className='flex flex-wrap items-center justify-center gap-[20px] w-[80%]'>
           <Section7/>
-      {/* <div className='mt-10 flex justify-center'>
+      <div className='mt-10 flex justify-center'>
         <BtnRed text="More Products"/>
-      </div> */}
+      </div>
         </div>
       </section>
     </main>

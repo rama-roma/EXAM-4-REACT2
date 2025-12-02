@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const API = import.meta.env.VITE_APP_API;
+export  const API = import.meta.env.VITE_API_KEY;
+
 
 export const axiosRequest = axios.create({
   baseURL: API,
@@ -10,17 +11,22 @@ export const axiosRequest = axios.create({
   },
 });
 
-export const apiInstance = axios.create({
-  baseURL: API,
- 
-});
 
-function saveToken(token) {
-  localStorage.setItem("token", token);
-}
 
-function removeToken() {
-  localStorage.removeItem("token");
-}
+export const getAxiosWithToken = axios.create({
+    baseURL: API,   
+    headers: {
+      "Content-Type": "application/json",
+      },
+  });
 
-export {saveToken,removeToken};
+
+export const saveToken = (data) => {
+    if (data && data) {
+        localStorage.setItem("token", data);
+    }
+};
+
+// // export const removeToken = () => {
+// //   localStorage.removeItem("token");
+// // };

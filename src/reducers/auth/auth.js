@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { saveToken } from "../../utils/api";
+import {  getAxiosWithToken, saveToken } from '../../utils/api'
 
 const initialState = {
     data: [],
@@ -10,8 +9,8 @@ const initialState = {
 
 export const loginUser = createAsyncThunk("auth/loginUser", 
     async (user) => {
-        const { data } = await axios.post(`http://37.27.29.18:8002/Account/login`, user);
-        if(data & data.data) {   
+        const { data } = await getAxiosWithToken.post(`/Account/login`, user);
+        if(data && data.data) {   
             saveToken(data.data);
         }
         return data.data;    
@@ -20,7 +19,7 @@ export const loginUser = createAsyncThunk("auth/loginUser",
 
 export const registerUser = createAsyncThunk("auth/registerUser", 
     async (user) => {
-        const { data } = await axios.post(`http://37.27.29.18:8002/Account/register`, user);
+        const { data } = await getAxiosWithToken.post(`/Account/register`, user);
         return data.data;    
     }
 )
@@ -32,6 +31,7 @@ const authSlice = createSlice({
         Logout: (state) => {
             state.user = null;
             state.token = null;
+            localStorage.removeItem("token");
         }
     },
     extraReducers: (builder) => {
