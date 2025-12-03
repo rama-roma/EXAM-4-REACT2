@@ -90,6 +90,8 @@ const Account = () => {
       </div>
 
 
+
+
       <div className='block md:hidden'>
     <main>
       <div className='mt-10 flex items-center gap-[10px]'>
@@ -122,11 +124,20 @@ const Account = () => {
           </div>
         </div>
 
-        <div className='bg-[white] rounded-2xl shadow-lg p-5 flex flex-col gap-[20px]'>
+        <div key={userData?.userId} className='bg-[white] rounded-2xl shadow-lg p-5 flex flex-col gap-[20px]'>
           <h1 className='text-[22px] text-[#DB4444] font-bold'>Profile</h1>
           
           <div className='flex flex-col gap-[15px]'>
             <div className='flex flex-col gap-[15px]'>
+              <Input 
+                placeholder='User Name' 
+                style={{
+                  height: "50px", 
+                  width: "100%",
+                  fontSize: "14px"
+                }} 
+                value={userName} onChange={(e) => setUserName(e.target.value)}
+              />
               <Input 
                 placeholder='First name' 
                 style={{
@@ -134,6 +145,7 @@ const Account = () => {
                   width: "100%",
                   fontSize: "14px"
                 }} 
+                value={firstName} onChange={(e) => setFirstName(e.target.value)}
               />
               <Input 
                 placeholder='Last name' 
@@ -142,25 +154,28 @@ const Account = () => {
                   width: "100%",
                   fontSize: "14px"
                 }} 
+                value={lastName} onChange={(e) => setLastName(e.target.value)}
               />
             </div>
             
             <div className='flex flex-col gap-[15px]'>
               <Input 
-                placeholder='Email address' 
+                placeholder='Email' 
                 style={{
                   height: "50px", 
                   width: "100%",
                   fontSize: "14px"
                 }} 
+                value={email} onChange={(e) => setEmail(e.target.value)}
               />
               <Input 
-                placeholder='Street address' 
+                placeholder='Phone number' 
                 style={{
                   height: "50px", 
                   width: "100%",
                   fontSize: "14px"
                 }} 
+                value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
           </div>

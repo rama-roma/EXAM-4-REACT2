@@ -1,12 +1,30 @@
 import { Checkbox, Input, Radio } from 'antd'
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../index.css'
 import img1 from '../images/mini (1).svg'
 import img2 from '../images/mini (2).svg'
 import img3 from '../images/cart.svg'
 import BtnRed from '../components/btnRed'
+import { useDispatch, useSelector } from 'react-redux'
+import { getCart } from '../reducers/cart/cart'
+
+
 
 const Check = () => {
+  const dispatch = useDispatch();
+  const cartState = useSelector((state) => state.cart);
+
+  
+  useEffect(() => {
+    dispatch(getCart())
+  },[dispatch])
+
+  const TotalPrice = useSelector((state) => state.cart.TotalPrice);
+
+  const data = cartState?.data|| []
+  console.log(data,"cart");
+
+
   return (
     <>
      <div className='hidden md:block'>
@@ -20,7 +38,7 @@ const Check = () => {
       </div>
 
       <section className='mt-20 flex items-center justify-center gap-[390px] mb-20'>
-        <div className='flex flex-col items-start gap-[10px]'>
+        <div className='flex flex-col items-start gap-[20px]'>
           <h1 className='text-[30px]'>Billing Details</h1>
           <div className='bg-[white] border border-[#dbdada] shadow-2xl rounded-[10px] p-4 pt-10 pb-10 pl-5 pr-5 flex flex-col items-center gap-[10px]'>
             <Input placeholder='First name' style={{width:"450px", height:"50px"}}/>
@@ -37,52 +55,52 @@ const Check = () => {
           </div>
         </div>
 
-        <div className='flex flex-col gap-[10px] w-100'>
-          <div className='flex items-center justify-between'>
-            <div className='flex gap-[5px] items-center'>
-              <img src={img1} alt="" />
-              <p>LCD Monitor</p>
-            </div>
-            <p>$650</p>
-          </div>
-          <div className='flex items-center justify-between'>
-            <div className='flex gap-[5px] items-center'>
-              <img src={img2} alt="" />
-              <p>H1 Gamepad</p>
-            </div>
-            <p>$1100</p>
-          </div><br />
+        <div className='flex flex-col gap-[7px] w-140'>
+          {
+            data.length > 0 && data?.[0].productsInCart?.map((item) => (
+              <div key={item?.id}>
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center gap-[10px]'>
+                    <img className='w-25 h-20' src={`http://37.27.29.18:8002/images/${item.product.image}`} alt="" />
+                    <span>{item?.product?.productName}</span>
+                  </div>
+                  <p>${item?.product?.price * item.quantity}</p>
+                </div>
+              </div>
+            ))
+          }
+          <br />
           <div className='flex items-center justify-between'>
             <p>Subtotal:</p>
-            <p>$1750</p>
+            <span>${TotalPrice}</span>
           </div>
           <div className='flex items-center justify-between'>
             <p>Shipping:</p>
-            <p>Free</p>
-          </div><br />
-          <div className='border w-full border-[#c9c8c8]'></div><br />
+            <span className='text-[green]'>Free</span>
+          </div>
+          <div className='border w-full border-[#adadad]'></div>
           <div className='flex items-center justify-between'>
-            <p className='font-bold'>Total:</p>
-            <p className='font-bold'>$1750</p>
+            <p className='text-[20px] font-bold'>Total:</p>
+            <span className='text-[20px] font-bold'>${TotalPrice}</span>
           </div><br />
-          <div className='flex justify-between items-center'>
+          <div className='flex items-center justify-between'>
             <div className='flex items-center gap-[5px]'>
               <Radio/>
               <p>Bank</p>
             </div>
             <img src={img3} alt="" />
           </div>
-          <div className='flex items-center gap-[5px]'>
+          <div>
             <Radio/>
-            <p>Cash on delivery</p>
+            <span>Cash on delivery</span>
           </div><br />
-        <div className='flex items-center gap-[20px]'>
-          <Input placeholder='Coupon Code' style={{height:"45px", width:"300px"}}/>
-          <button className='p-2 pr-10 pl-10 border border-[#DB4444] text-[#DB4444] rounded-[5px]'>Apply</button>
-        </div><br />
-        <div>
-          <BtnRed text="Place Order"/>
-        </div>
+          <div className='bg-[white] rounded-[5px] shadow-2xl p-4 flex  justify-between'>
+            <Input placeholder='Coupon Code' style={{width:"250px"}} />
+            <button className='p-2 border-2 w-40 rounded-[10px] text-[#DB4444] border-[#DB4444]'>Apply</button>
+          </div>
+          <div>
+            <BtnRed text="Place Order" />
+          </div>
         </div>
       </section>
     </main>
