@@ -4,7 +4,7 @@ import { DeleteOutlined } from '@ant-design/icons'
 import BtnRed from '../components/btnRed'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteCart, getCart } from '../reducers/cart/cart'
+import { deleteCart, getCart, deleteAll, increase, reduce } from '../reducers/cart/cart'
 
 const Cart = () => {
   const dispatch = useDispatch()
@@ -14,8 +14,11 @@ const Cart = () => {
     dispatch(getCart())
   }, [dispatch])
 
-  const data = cartState?.data || []
-  const isEmpty = data.length === 0
+  const TotalPrice = useSelector((state)=>state.cart.TotalPrice)
+
+  const data = cartState?.data|| []
+  console.log(data,"cart");
+  
 
   return (
     <div>
@@ -26,18 +29,7 @@ const Cart = () => {
           <p>Cart</p>
         </div>
 
-        {isEmpty ? (
-          <section className='mt-10 text-center'>
-            <div className='border rounded-[5px] p-10'>
-              <p className='text-xl font-medium'>Your cart is empty</p>
-              <Link to="/">
-                <button className='mt-5 p-3 pr-12 pl-12 border border-[#DB4444] text-[#DB4444] rounded-[5px] text-[16px]'>
-                  Go Shopping
-                </button>
-              </Link>
-            </div>
-          </section>
-        ) : (
+        { (
           <>
             <section className='mt-10'>
               <div className='border rounded-[5px] overflow-hidden'>
@@ -49,36 +41,31 @@ const Cart = () => {
                   <div className='text-center'>Action</div>
                 </div>
 
-                {data?.map((item) => (
+                {data.length > 0 && data?.[0].productsInCart?.map((item) => (
                   <div key={item?.id} className='grid grid-cols-5 p-4 border-t items-center'>
                     <div className='flex items-center gap-4'>
                       <div className='w-20 h-20 bg-gray-100 rounded flex items-center justify-center'>
-                        {item.images?.map((e) => (
-                          <img key={e.id} className="w-full h-full object-contain p-2" src={`http://37.27.29.18:8002/images/${e.images}`} alt="" />
-                        ))}
+                          <img  className="w-full h-full object-contain p-2" src={`http://37.27.29.18:8002/images/${item.product.image}`} alt="" />
                       </div>
-                      <span className='font-medium'>{item?.productName}</span>
+                      <span className='font-medium'>{item.product?.productName}</span>
                     </div>
 
-                    <div className='text-center'>${item?.totalPrice}</div>
+                    <div className='text-center'>${item?.product?.price}</div>
 
-                    <div className='text-center'>
-                      <InputNumber
-                        min={1}
-                        max={99}
-                        defaultValue={item?.quantity}
-                        style={{ width: 80 }}
-                      />
+                    <div className='flex items-center gap-[10px] ml-25'>
+                      <button className="border-2 rounded-[2px] text-[#DB4444] w-5 h-5 flex items-center justify-center" onClick={()=>dispatch(reduce(item.id))}>-</button>
+                      <span>{item?.quantity}</span>
+                      <button className="border-1 rounded-[2px] bg-[#DB4444] text-[white] p-2 w-5 h-5 flex items-center justify-center" onClick={()=>dispatch(increase(item.id))}>+</button>
                     </div>
 
-                    <div className='text-center'>${item?.totalPrice * item?.quantity}</div>
+                    <div className='text-center'>${item?.product?.price * item?.quantity}</div>
 
                     <div className='text-center'>
                       <Button
                         type="text"
                         danger
                         icon={<DeleteOutlined />}
-                        onClick={() => dispatch(deleteCart(item?.id))}
+                        onClick={() => {dispatch(deleteCart({productId:item?.id,dispatch}))}}
                       />
                     </div>
                   </div>
@@ -92,7 +79,7 @@ const Cart = () => {
               </Link>
               <div className='flex items-center gap-[20px]'>
                 <button className='p-3 pr-12 pl-12 border rounded-[5px] text-[16px]'>Update Cart</button>
-                <button className='p-3 pr-12 pl-12 border border-[#DB4444] text-[#DB4444] rounded-[5px] text-[16px]'>Remove all</button>
+                <button className='p-3 pr-12 pl-12 border border-[#DB4444] text-[#DB4444] rounded-[5px] text-[16px]' onClick={() => dispatch(deleteAll())}>Remove all</button>
               </div>
             </section>
 
@@ -105,7 +92,7 @@ const Cart = () => {
                 <h1 className='text-[24px] font-bold'>Cart Total</h1>
                 <div className='flex justify-between items-center'>
                   <p className='text-[18px]'>Subtotal:</p>
-                  <p className='font-medium text-[18px]'>${data.reduce((acc, item) => acc + (item?.totalPrice * item?.quantity), 0)}</p>
+                  <p className='font-medium text-[18px]'>${TotalPrice}</p>
                 </div>
                 <div className='flex justify-between items-center'>
                   <p className='text-[18px]'>Shipping:</p>
@@ -114,7 +101,7 @@ const Cart = () => {
                 <div className='border w-full border-[#cac8c8]'></div>
                 <div className='flex justify-between items-center'>
                   <p className='font-bold text-[20px]'>Total:</p>
-                  <p className='font-bold text-[20px]'>${data.reduce((acc, item) => acc + (item?.totalPrice * item?.quantity), 0)}</p>
+                  <p className='font-bold text-[20px]'>${TotalPrice}</p>
                 </div>
                 <div className='mt-5 flex justify-center'>
                   <Link to='/check'>

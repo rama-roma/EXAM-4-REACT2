@@ -1,8 +1,35 @@
 import { Input } from 'antd'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BtnRed from '../components/btnRed'
+import { useDispatch, useSelector } from 'react-redux'
+import { accountUser } from '../reducers/auth/auth'
 
 const Account = () => {
+
+  const { userData } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(accountUser());
+  },[dispatch]);
+ 
+  const [userName, setUserName] = useState(userData?.userName);
+  const [firstName, setFirstName] = useState(userData?.firstName);
+  const [lastName, setLastName] = useState(userData?.lastName);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  console.log(userData,"user");
+
+  useEffect(()=> {
+    setUserName(userData?.userName)
+    setFirstName(userData?.firstName)
+    setLastName(userData?.lastName)
+    setEmail(userData?.email)
+    setPhoneNumber(userData?.phoneNumber)
+  },[userData]);
+  
+
   return (
     <>
       <div className='hidden md:block'>
@@ -31,19 +58,23 @@ const Account = () => {
           <h1 className='text-[20px] font-bold'>My WishList</h1>
         </div>
 
-
-        <div className='bg-[white] rounded-2xl pl-10 pr-10 shadow-2xl p-4 flex flex-col gap-[20px]'>
+    
+        <div key={userData?.userId} className='bg-[white] rounded-2xl pl-10 pr-10 shadow-2xl p-4 flex flex-col gap-[20px]'>
           <h1 className='text-[25px] text-[#DB4444] font-bold'>Profile</h1>
           <div className='flex gap-[20px]'>
-            <Input placeholder='First name' style={{height:"50px", width:"450px"}} />
-            <Input placeholder='Last name' style={{height:"50px", width:"450px"}} /> 
+            <Input value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder='First name' style={{height:"50px", width:"450px"}} />
+            <Input value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder='Last name' style={{height:"50px", width:"450px"}} /> 
           </div>
           <div className='flex gap-[20px]'>
-            <Input placeholder='Email address' style={{height:"50px", width:"450px"}} />
-            <Input placeholder='Street address' style={{height:"50px", width:"450px"}} /> 
-          </div><br /><br />
+            <Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' style={{height:"50px", width:"450px"}} />
+            <Input value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} placeholder='Phone Number' style={{height:"50px", width:"450px"}} /> 
+          </div>
+          <div className='flex justify-center'>
+            <Input  value={userName}  onChange={(e) => setUserName(e.target.value)} placeholder='User Name' style={{height:"50px", width:"450px"}} /> 
+          </div>
+          <br /><br />
           <h1 className='text-[25px] font-bold'>Password Changes</h1>
-          <Input placeholder='Current passwod' style={{height:"50px"}} />
+          <Input value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Current passwod' style={{height:"50px"}} />
           <div className='flex gap-[20px]'>
             <Input placeholder='New passwod' style={{height:"50px", width:"450px"}} />
             <Input placeholder='Confirm new passwod' style={{height:"50px", width:"450px"}} /> 
@@ -53,6 +84,7 @@ const Account = () => {
             <BtnRed text="Save Changes" />
           </div>
         </div>
+     
       </section>
     </main>
       </div>

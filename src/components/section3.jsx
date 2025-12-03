@@ -5,6 +5,7 @@ import BtnRed from './btnRed'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUser } from '../reducers/products/product'
+import { addCart, getCart } from '../reducers/cart/cart'
 
 const Section3 = () => {
   const { data } = useSelector((state) => state.product)
@@ -13,6 +14,19 @@ const Section3 = () => {
   useEffect(() => {
     dispatch(getUser())
   }, [dispatch])
+
+  const handleAddToFavorites = (product) => {
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || []
+    const exists = favorites.some(item => item.id === product.id)
+    if (!exists) {
+      favorites.push(product)
+      localStorage.setItem("favorites", JSON.stringify(favorites))
+      console.log("added to favorites:", product)
+    } 
+    else {
+      console.log("already in favorites")
+    }
+  }
 
   return (
     <>
@@ -25,7 +39,10 @@ const Section3 = () => {
                   <div className='bg-[#DB4444] text-white p-2 pl-5 pr-5 rounded-[7px]'>
                     -{product.discountPrice}%
                   </div>
-                  <HeartOutlined style={{ fontSize: "25px" }} />
+                  <HeartOutlined 
+                  style={{ fontSize: "25px", cursor: "pointer" }}
+                  onClick={() => handleAddToFavorites(product)}
+                />
                 </div>
                 <div className='flex justify-end'>
                   <Link to={`/infoproduct/${product.id}`}>
@@ -56,7 +73,7 @@ const Section3 = () => {
                 </div>
               </div>
 
-              <button className='absolute bottom-30 left-0 w-full bg-black text-white py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+              <button onClick={() => dispatch(addCart(product.id)).then(() => dispatch(getCart()))} className='absolute bottom-30 left-0 w-full bg-black text-white py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
                 Add to Cart
               </button>
             </article>
