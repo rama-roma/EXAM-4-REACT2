@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+
 import { axiosRequest } from "../../utils/api";
 
 const initialState = {
@@ -9,11 +9,7 @@ const initialState = {
 
 export const getUser = createAsyncThunk("product/getUser", async () => {
   try {
-    const { data } = await axiosRequest.get("/Product/get-products", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const { data } = await axiosRequest.get("/Product/get-products")
     return data.data;
   } catch (error) {
     console.log(error);
@@ -22,14 +18,7 @@ export const getUser = createAsyncThunk("product/getUser", async () => {
 
 export const getById = createAsyncThunk("product/getById", async (id) => {
   try {
-    const { data } = await axios.get(
-      `http://37.27.29.18:8002/Product/get-product-by-id?id=${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+    const { data } = await axiosRequest.get(`/Product/get-product-by-id?id=${id}`);
     return data.data;
   } catch (error) {
     console.log(error);

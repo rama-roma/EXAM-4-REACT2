@@ -7,10 +7,11 @@ export const axiosRequest = axios.create({
   baseURL: API,
   headers: {
     "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`
   },
 });
 
-export const getAxiosWithToken = axios.create({
+export const  axiosInstance = axios.create({
   baseURL: API,
   headers: {
     "Content-Type": "application/json",

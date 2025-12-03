@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import img from './images/Group 1116606595.svg'
 import { FacebookOutlined, HeartOutlined, InstagramOutlined, LinkedinOutlined, SearchOutlined, SendOutlined, ShoppingCartOutlined, TwitterOutlined, UserOutlined } from '@ant-design/icons'
@@ -67,9 +66,9 @@ const Layout = () => {
                <Link to="/wishlist">
                  <HeartOutlined style={{fontSize:"20px"}} />
                </Link>
-               <Link to="/cart">
-                 <ShoppingCartOutlined style={{fontSize:"20px"}} />
-               </Link>
+                <Link to="/cart">
+                  <ShoppingCartOutlined style={{ fontSize: "20px" }} />
+                </Link>
                <Link to="/account">
                  <UserOutlined style={{fontSize:"20px"}} />
                </Link>

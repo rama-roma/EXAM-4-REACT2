@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { jwtDecode } from "jwt-decode";
-
-import axios from "axios";
-import { saveToken } from "../../utils/api";
+import { axiosRequest, saveToken } from "../../utils/api";
 
 const initialState = {
   data: [],
@@ -13,10 +11,7 @@ const initialState = {
 
 export const loginUser = createAsyncThunk("auth/loginUser", async (user) => {
   try {
-    const { data } = await axios.post(
-      "http://37.27.29.18:8002/Account/login",
-      user
-    );
+    const { data } = await axiosRequest.post("/Account/login",user);
     if (data && data.data) {
       saveToken(data.data);
     }
@@ -30,10 +25,7 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (user) => {
     try {
-      const { data } = await axios.post(
-        "http://37.27.29.18:8002/Account/register",
-        user
-      );
+      const { data } = await axiosRequest.post("/Account/register", user);
       if (data && data.data) {
         saveToken(data.data);
       }
@@ -47,45 +39,24 @@ export const registerUser = createAsyncThunk(
 export const accountUser = createAsyncThunk("auth/accountUser", async () => {
   try {
     const token = localStorage.getItem("token");
-
     const userData = jwtDecode(token);
     console.log(userData, "mmm");
 
-    const { data } = await axios.get(
-      "http://37.27.29.18:8002/UserProfile/get-user-profile-by-id?id=" +
-        userData.sid,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const { data } = await axiosRequest.get("/UserProfile/get-user-profile-by-id?id=" + userData.sid);
 
-    console.log(data, "user1");
     return data.data;
   } catch (error) {
     console.log(error);
   }
 });
 
-export const editAccountUser = createAsyncThunk( "auth/editAccountUser", async (userUpdateData) => {
+export const editAccountUser = createAsyncThunk( "auth/editAccountUser", async (userEditData) => {
     try {
       const token = localStorage.getItem("token");
-
       const userData = jwtDecode(token);
       console.log("bot",userData);
 
-      const { data } = await axios.put(
-        "http://37.27.29.18:8002/UserProfile/update-user-profile", userUpdateData, 
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
+      const { data } = await axiosRequest.put("/UserProfile/update-user-profile", userEditData);
       return data.data;
     } 
     catch (error) {
