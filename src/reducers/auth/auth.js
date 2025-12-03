@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import {  getAxiosWithToken, saveToken } from '../../utils/api'
+
+import axios from "axios";
+import { saveToken } from "../../utils/api";
 
 const initialState = {
     data: [],
@@ -9,31 +11,38 @@ const initialState = {
 
 export const loginUser = createAsyncThunk("auth/loginUser", 
     async (user) => {
-        const { data } = await getAxiosWithToken.post(`/Account/login`, user);
-        if(data && data.data) {   
+        try {
+          const { data } = await axios.post("http://37.27.29.18:8002/Account/login", user); 
+          if (data && data.data){
             saveToken(data.data);
-        }
-        return data.data;    
+          }
+          return data.data;
+        } 
+        catch (error) {
+            console.log(error);
+        } 
     }
 )
 
 export const registerUser = createAsyncThunk("auth/registerUser", 
     async (user) => {
-        const { data } = await getAxiosWithToken.post(`/Account/register`, user);
-        return data.data;    
+        try {
+          const { data } = await axios.post("http://37.27.29.18:8002/Account/register", user); 
+          if (data && data.data){
+            saveToken(data.data);
+          }
+          return data.data;
+        } 
+        catch (error) {
+            console.log(error);
+        } 
     }
 )
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {
-        Logout: (state) => {
-            state.user = null;
-            state.token = null;
-            localStorage.removeItem("token");
-        }
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(loginUser.fulfilled, (state, action) => {

@@ -1,32 +1,42 @@
 import axios from "axios";
 
-export  const API = import.meta.env.VITE_API_KEY;
-
+export const API = import.meta.env.VITE_API_KEY;
 
 export const axiosRequest = axios.create({
   baseURL: API,
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
 });
 
-
-
 export const getAxiosWithToken = axios.create({
-    baseURL: API,   
-    headers: {
-      "Content-Type": "application/json",
-      },
-  });
+  baseURL: API,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-
-export const saveToken = (data) => {
-    if (data && data) {
-        localStorage.setItem("token", data);
-    }
+// Интерцептор для автоматического добавления токена
+const addTokenToRequest = (config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 };
 
-// // export const removeToken = () => {
-// //   localStorage.removeItem("token");
-// // };
+axiosRequest.interceptors.request.use(addTokenToRequest);
+getAxiosWithToken.interceptors.request.use(addTokenToRequest);
+
+export const saveToken = (token) => {
+  if (token) {
+    localStorage.setItem("token", token);
+    // После сохранения токена нужно обновить заголовки
+    // Это произойдет автоматически через интерцепторы
+  }
+};
+
+export const removeToken = () => {
+  localStorage.removeItem("token");
+  // Здесь можно также очистить заголовки axios
+};

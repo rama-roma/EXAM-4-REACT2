@@ -11,6 +11,7 @@ import Section4 from '../components/section4'
 import img1 from '../images/Frame 694.svg'
 import Section5 from '../components/section5'
 import Section6 from '../components/section6'
+import Section7 from '../components/section7'
 import img2 from '../images/play.svg'
 import img3 from '../images/attractive-woman-wearing-hat-posing-black-background 1.svg'
 import img4 from '../images/smart (1).svg';

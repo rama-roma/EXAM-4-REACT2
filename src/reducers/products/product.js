@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios";
-import { axiosRequest } from "../../utils/api";
+
 
 
 const initialState = {
@@ -10,7 +10,7 @@ const initialState = {
 
 export const getUser = createAsyncThunk("product/getUser", async () => {
     try {
-      const { data } = await axiosRequest.get("/Product/get-products",{
+      const { data } = await axios.get("http://37.27.29.18:8002/Product/get-products",{
         headers:{
             Authorization:`Bearer ${localStorage.getItem("token")}`
         }
