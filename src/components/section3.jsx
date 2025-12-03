@@ -86,8 +86,13 @@ const Section3 = () => {
         </div>
       </div>
 
+
+
+
+      
+
       <div className='block md:hidden'>
-        <section className='mt-20 mb-10 flex overflow-x-auto gap-[30px]'>
+        <section className='mt-20 mb-10 flex overflow-x-auto h-120 gap-[30px]'>
           {data?.products?.slice(0, 4).map((product) => (
             <article key={product.id} className='group relative flex-shrink-0 flex flex-col items-start justify-start gap-[20px] w-80 h-100'>
               <div className='bg-[#F5F5F5] w-full h-70 flex flex-col gap-[20px] p-4'>
@@ -95,7 +100,7 @@ const Section3 = () => {
                   <div className='bg-[#DB4444] text-white p-2 pl-5 pr-5 rounded-[7px]'>
                     -{product.discountPrice}%
                   </div>
-                  <HeartOutlined style={{ fontSize: "25px" }} />
+                  <HeartOutlined onClick={() => handleAddToFavorites(product)} style={{ fontSize: "25px" }} />
                 </div>
                 <div className='flex justify-end'>
                   <Link to={`/infoproduct/${product.id}`}>
@@ -127,7 +132,7 @@ const Section3 = () => {
               </div>
             
 
-              <button className='absolute bottom-30 left-0 w-full bg-black text-white py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+              <button onClick={() => dispatch(addCart(product.id)).then(() => dispatch(getCart()))} className='absolute bottom-30 left-0 w-full bg-black text-white py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
                 Add to Cart
               </button>
             </article>
@@ -137,7 +142,7 @@ const Section3 = () => {
           <Link to='/products'>
             <BtnRed text="View All Products"/>
           </Link>
-        </div>
+        </div><br /><br />
       </div>
     </>
   )
