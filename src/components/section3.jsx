@@ -93,12 +93,14 @@ const Section3 = () => {
               <div className='bg-[#F5F5F5] w-full h-70 flex flex-col gap-[20px] p-4'>
                 <div className='flex justify-between items-center'>
                   <div className='bg-[#DB4444] text-white p-2 pl-5 pr-5 rounded-[7px]'>
-                    -{product.discount || 40}%
+                    -{product.discountPrice}%
                   </div>
                   <HeartOutlined style={{ fontSize: "25px" }} />
                 </div>
                 <div className='flex justify-end'>
-                  <EyeOutlined style={{ fontSize: "25px" }} />
+                  <Link to={`/infoproduct/${product.id}`}>
+                    <EyeOutlined style={{ fontSize: "25px" }} />
+                  </Link>
                 </div>
                 <div className='flex justify-center mt-[-30px]'>
                   <img 
@@ -117,11 +119,13 @@ const Section3 = () => {
                     <p className='text-gray-500 line-through'>${product.oldPrice}</p>
                   )}
                 </div>
+                <span className='bg-[#d1cdcd] p-2 rounded-[2px] w-20 text-center'>{product.color}</span>
                 <div className='flex items-center gap-[10px]'>
                   <Rate defaultValue={product.rating || 4} />
                   <p className='text-gray-500 font-bold'>({product.reviews || 88})</p>
                 </div>
               </div>
+            
 
               <button className='absolute bottom-30 left-0 w-full bg-black text-white py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
                 Add to Cart

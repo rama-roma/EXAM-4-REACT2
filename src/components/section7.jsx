@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { getUser } from '../reducers/products/product'
-import { HeartOutlined, EyeOutlined } from '@ant-design/icons'
+import { HeartOutlined,  EyeOutlined } from '@ant-design/icons'
 import { Rate, Radio } from 'antd'
 import { addCart, getCart } from '../reducers/cart/cart'
 import { Link } from 'react-router-dom'
