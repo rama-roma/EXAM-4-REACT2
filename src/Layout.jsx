@@ -6,9 +6,18 @@ import './index.css'
 import { LogOut, Menu } from 'lucide-react'
 import { removeToken } from './utils/api'
 import { useDispatch } from 'react-redux'
+import { logout } from "./redux/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Layout = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    removeToken();
+    dispatch(logout());
+    navigate("/login");
+  }
   
   const content = (
     <div className='flex flex-col gap-[20px] w-30 '>
@@ -21,7 +30,7 @@ const Layout = () => {
         Wishlist
       </Link>
       <Link className='flex items-center gap-[20px]'>
-        <LogOut onClick={() => removeToken()} />
+        <LogOut onClick={handleLogout} />
         Log Out
       </Link>
     </div>
@@ -76,7 +85,7 @@ const Layout = () => {
                <Link to="/account">
                  <UserOutlined style={{fontSize:"20px"}} />
                </Link>
-               <LogOut onClick={() => dispatch(removeToken())} style={{fontSize: "20px"}} />
+               <LogOut onClick={handleLogout} style={{fontSize: "20px"}} />
             </div>
         </nav>
       </header>
