@@ -6,8 +6,8 @@ import './index.css'
 import { LogOut, Menu } from 'lucide-react'
 import { removeToken } from './utils/api'
 import { useDispatch } from 'react-redux'
-import { logout } from "./redux/authSlice";
 import { useNavigate } from "react-router-dom";
+import { logout } from './reducers/auth/auth'
 
 const Layout = () => {
   const dispatch = useDispatch();
