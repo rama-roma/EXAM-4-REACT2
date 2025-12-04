@@ -5,8 +5,12 @@ import { Input, Popover } from 'antd'
 import './index.css'
 import { LogOut, Menu } from 'lucide-react'
 import { removeToken } from './utils/api'
+import { logout } from './reducers/auth/auth'
+import { useDispatch } from 'react-redux'
 
 const Layout = () => {
+  const dispatch = useDispatch();
+  
   const content = (
     <div className='flex flex-col gap-[20px] w-30 '>
       <Link to="/account" className='flex items-center gap-[20px]'>
@@ -62,7 +66,7 @@ const Layout = () => {
                   </Link>
                 </ul>
             </div>
-            <div className='flex items-center gap-[30px]'>
+            <div className='flex items-center gap-[20px]'>
                <Input style={{width:"300px"}} placeholder="What are you looking for?" suffix={<SearchOutlined />} />
                <Link to="/wishlist">
                  <HeartOutlined style={{fontSize:"20px"}} />
@@ -73,6 +77,7 @@ const Layout = () => {
                <Link to="/account">
                  <UserOutlined style={{fontSize:"20px"}} />
                </Link>
+               <LogOut onClick={() => dispatch(logout())} style={{fontSize: "20px"}} />
             </div>
         </nav>
       </header>
