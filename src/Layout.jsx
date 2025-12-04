@@ -5,7 +5,6 @@ import { Input, Popover } from 'antd'
 import './index.css'
 import { LogOut, Menu } from 'lucide-react'
 import { removeToken } from './utils/api'
-import { logout } from './reducers/auth/auth'
 import { useDispatch } from 'react-redux'
 
 const Layout = () => {
@@ -77,7 +76,7 @@ const Layout = () => {
                <Link to="/account">
                  <UserOutlined style={{fontSize:"20px"}} />
                </Link>
-               <LogOut onClick={() => dispatch(logout())} style={{fontSize: "20px"}} />
+               <LogOut onClick={() => dispatch(removeToken())} style={{fontSize: "20px"}} />
             </div>
         </nav>
       </header>
