@@ -155,6 +155,9 @@ const Account = () => {
         </main>
       </div>
 
+
+
+
       <div className="block md:hidden">
         <main>
           <div className="mt-10 flex items-center gap-[10px]">
@@ -248,6 +251,12 @@ const Account = () => {
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
                   />
+                  <Input
+                  onChange={(e) => setImage(e.target.files)}
+                  type="file"
+                  placeholder="First name"
+                  style={{ height: "50px", width: "100%" }}
+                />
                 </div>
               </div>
 
