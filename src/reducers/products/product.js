@@ -25,6 +25,8 @@ export const getById = createAsyncThunk("product/getById", async (id) => {
   }
 });
 
+
+
 export const productSlice = createSlice({
   name: "product",
   initialState,

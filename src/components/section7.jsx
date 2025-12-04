@@ -10,6 +10,8 @@ const Section7 = () => {
   const { data } = useSelector((state) => state.product)
   const dispatch = useDispatch()
 
+  
+
   useEffect(() => {
     dispatch(getUser())
   }, [dispatch])
