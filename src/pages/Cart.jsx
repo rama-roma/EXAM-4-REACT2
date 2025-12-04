@@ -46,7 +46,7 @@ const Cart = () => {
                   <div key={item?.id} className='grid grid-cols-5 p-4 border-t items-center'>
                     <div className='flex items-center gap-4'>
                       <div className='w-20 h-20 bg-gray-100 rounded flex items-center justify-center'>
-                          <img  className="w-full h-full object-contain p-2" src={`http://37.27.29.18:8002/images/${item.product.image}`} alt="" />
+                          <img  className="w-full h-full object-contain p-2" src={`https://store-api.softclub.tj/images/${item.product.image}`} alt="" />
                       </div>
                       <span className='font-medium'>{item.product?.productName}</span>
                     </div>
@@ -135,7 +135,7 @@ const Cart = () => {
                 <div className='w-20 h-20 bg-gray-100 rounded flex-shrink-0 flex items-center justify-center'>
                   <img 
                     className="w-full h-full object-contain p-2" 
-                    src={`http://37.27.29.18:8002/images/${item.product.image}`} 
+                    src={`https://store-api.softclub.tj/images/${item.product.image}`} 
                     alt={item.product?.productName} 
                   />
                 </div>

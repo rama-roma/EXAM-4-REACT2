@@ -51,7 +51,7 @@ const Section7 = () => {
               <div className='flex justify-center mt-[-30px]'>
                 <img 
                   className='w-40 max-h-40 object-contain' 
-                  src={`http://37.27.29.18:8002/images/${product.image}`} 
+                  src={`https://store-api.softclub.tj/images/${product.image}`} 
                   alt={product.productName} 
                 />
               </div>
@@ -116,7 +116,7 @@ const Section7 = () => {
               <div className='flex justify-center mt-[-30px]'>
                 <img 
                   className='w-40 max-h-40 object-contain' 
-                  src={`http://37.27.29.18:8002/images/${product.image}`} 
+                  src={`https://store-api.softclub.tj/images/${product.image}`} 
                   alt={product.productName} 
                 />
               </div>
