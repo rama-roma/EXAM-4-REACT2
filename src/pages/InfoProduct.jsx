@@ -286,7 +286,7 @@ const InfoProduct = () => {
               <div className='border h-7'></div>
               <PlusOutlined />
             </div>
-            <div> <button className='text-[white] bg-[#DB4444] p-2 pl-10 pr-10 rounded-[5px]'>Buy Now</button> </div>
+            <div> <button onClick={() => dispatch(addCart(dataById?.id)).then(() => dispatch(getCart()))} className='text-[white] bg-[#DB4444] p-2 pl-10 pr-10 rounded-[5px]'>Buy Now</button> </div>
             <div className='flex w-10 h-10 items-center justify-center border p-2 rounded-[3px] text-[23px] '><HeartOutlined /></div>
           </div>
           <div className='border rounded-[5px] p-4 flex flex-col items-start justify-center gap-[20px]'>

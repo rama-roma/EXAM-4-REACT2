@@ -33,7 +33,7 @@ export const deleteCart = createAsyncThunk("cart/deleteCart", async ({productId,
     console.log(token);
     
     const { data } = await axiosRequest.delete(`/Cart/delete-product-from-cart?id=${productId}`);
-    dispatch(+getCart())
+    dispatch(getCart())
 
     return data.data;
   } catch (error) {
