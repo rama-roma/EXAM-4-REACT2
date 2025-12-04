@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { jwtDecode } from "jwt-decode";
 import { axiosRequest, saveToken } from "../../utils/api";
+import axios from "axios";
 
 const initialState = {
   data: [],
@@ -50,20 +51,32 @@ export const accountUser = createAsyncThunk("auth/accountUser", async () => {
   }
 });
 
-export const editAccountUser = createAsyncThunk( "auth/editAccountUser", async (userEditData) => {
+export const editAccountUser = createAsyncThunk( "auth/editAccountUser",  async (userEditData) => {
     try {
       const token = localStorage.getItem("token");
+      console.log("ma", token);
       const userData = jwtDecode(token);
-      console.log("bot",userData);
+      console.log(userData, "mmm");
+      
 
-      const { data } = await axiosRequest.put("/UserProfile/update-user-profile", userEditData);
+      const { data } = await axios.put(
+        "http://37.27.29.18:8002/UserProfile/update-user-profile",
+        userEditData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+     console.log(data);
       return data.data;
-    } 
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
   }
 );
+
 
 const authSlice = createSlice({
   name: "auth",

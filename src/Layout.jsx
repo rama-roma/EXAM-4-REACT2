@@ -4,6 +4,7 @@ import { FacebookOutlined, HeartOutlined, InstagramOutlined, LinkedinOutlined, S
 import { Input, Popover } from 'antd'
 import './index.css'
 import { LogOut, Menu } from 'lucide-react'
+import { removeToken } from './utils/api'
 
 const Layout = () => {
   const content = (
@@ -17,7 +18,7 @@ const Layout = () => {
         Wishlist
       </Link>
       <Link className='flex items-center gap-[20px]'>
-        <LogOut />
+        <LogOut onClick={() => removeToken()} />
         Log Out
       </Link>
     </div>

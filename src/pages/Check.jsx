@@ -135,77 +135,51 @@ const Check = () => {
           </div>
         </div>
 
-
-        <div className='flex flex-col gap-[15px] w-full'>
-          <h2 className='text-[20px] font-semibold'>Order Summary</h2>
-          <div className='bg-[white] border border-[#dbdada] shadow-lg rounded-[10px] p-5'>
-            <div className='flex items-center justify-between pb-3 border-b border-[#f0f0f0]'>
-              <div className='flex gap-[10px] items-center'>
-                <img src={img1} alt="LCD Monitor" className='w-12 h-12 object-cover rounded' />
-                <p className='text-[14px] font-medium'>LCD Monitor</p>
-              </div>
-              <p className='font-semibold'>$650</p>
-            </div>
-            
-            <div className='flex items-center justify-between pt-3 pb-3 border-b border-[#f0f0f0]'>
-              <div className='flex gap-[10px] items-center'>
-                <img src={img2} alt="H1 Gamepad" className='w-12 h-12 object-cover rounded' />
-                <p className='text-[14px] font-medium'>H1 Gamepad</p>
-              </div>
-              <p className='font-semibold'>$1100</p>
-            </div>
-
-            <div className='pt-3 space-y-2'>
-              <div className='flex items-center justify-between'>
-                <p className='text-[#666]'>Subtotal:</p>
-                <p className='font-medium'>$1750</p>
-              </div>
-              <div className='flex items-center justify-between'>
-                <p className='text-[#666]'>Shipping:</p>
-                <p className='font-medium text-[#00FF66]'>Free</p>
-              </div>
-              <div className='border-t border-[#e5e5e5] my-3'></div>
-              <div className='flex items-center justify-between'>
-                <p className='font-bold text-[16px]'>Total:</p>
-                <p className='font-bold text-[16px]'>$1750</p>
-              </div>
-            </div>
-
-            <div className='mt-4 space-y-3'>
-              <div className='flex justify-between items-center'>
-                <div className='flex items-center gap-[10px]'>
-                  <Radio/>
-                  <p className='text-[14px]'>Bank</p>
+        <div className='flex flex-col gap-[7px] w-full'>
+          {
+            data.length > 0 && data?.[0].productsInCart?.map((item) => (
+              <div key={item?.id}>
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center gap-[10px]'>
+                    <img className='w-20 h-15' src={`http://37.27.29.18:8002/images/${item.product.image}`} alt="" />
+                    <span>{item?.product?.productName}</span>
+                  </div>
+                  <p>${item?.product?.price * item.quantity}</p>
                 </div>
-                <img src={img3} alt="Bank" className='w-40' />
               </div>
-              <div className='flex items-center gap-[10px]'>
-                <Radio/>
-                <p className='text-[14px]'>Cash on delivery</p>
-              </div>
+            ))
+          }
+          <br />
+          <div className='flex items-center justify-between'>
+            <p>Subtotal:</p>
+            <span>${TotalPrice}</span>
+          </div>
+          <div className='flex items-center justify-between'>
+            <p>Shipping:</p>
+            <span className='text-[green]'>Free</span>
+          </div>
+          <div className='border w-full border-[#adadad]'></div>
+          <div className='flex items-center justify-between'>
+            <p className='text-[20px] font-bold'>Total:</p>
+            <span className='text-[20px] font-bold'>${TotalPrice}</span>
+          </div><br />
+          <div className='flex items-center justify-between'>
+            <div className='flex items-center gap-[5px]'>
+              <Radio/>
+              <p>Bank</p>
             </div>
-
-            {/* Coupon */}
-            <div className='mt-4 flex flex-col gap-[10px]'>
-              <div className='flex gap-[10px]'>
-                <Input 
-                  placeholder='Coupon Code' 
-                  style={{
-                    height: "45px", 
-                    width: "100%",
-                    fontSize: "14px"
-                  }}
-                />
-                <button className='p-3 border border-[#DB4444] text-[#DB4444] rounded-[5px] whitespace-nowrap px-4 text-[14px] font-medium'>
-                  Apply
-                </button>
-              </div>
-            </div>
-
-            {/* Place Order Button */}
-            <div className='mt-6'>
-              <BtnRed text="Place Order" className='w-full justify-center'/>
-            </div>
+            <img src={img3} alt="" />
+          </div>
+          <div>
+            <Radio/>
+            <span>Cash on delivery</span>
+          </div><br />
+          <div className='bg-[white] rounded-[5px] shadow-2xl p-4 flex gap-[10px] justify-between'>
+            <Input placeholder='Coupon Code' style={{width:"250px"}} />
+            <button className='p-2 border-2 w-30 rounded-[10px] text-[#DB4444] border-[#DB4444]'>Apply</button>
+          </div>
+          <div>
+            <BtnRed text="Place Order" />
           </div>
         </div>
       </section>
