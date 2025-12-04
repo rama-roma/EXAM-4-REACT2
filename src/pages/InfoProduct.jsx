@@ -39,7 +39,7 @@ const InfoProduct = () => {
               return (
                 <div>
                   <img 
-                    src={`http://37.27.29.18:8002/images/${e.images}`} 
+                    src={`https://store-api.softclub.tj/images/${e.images}`} 
                     alt={dataById?.productName} 
                     className="w-full h-full object-contain"
                   />
@@ -53,7 +53,7 @@ const InfoProduct = () => {
               return (
                 <div>
                   <img 
-                    src={`http://37.27.29.18:8002/images/${e.images}`} 
+                    src={`https://store-api.softclub.tj/images/${e.images}`} 
                     alt={dataById?.productName} 
                     className="w-full h-full object-contain"
                   />
@@ -67,7 +67,7 @@ const InfoProduct = () => {
               return (
                 <div>
                   <img 
-                    src={`http://37.27.29.18:8002/images/${e.images}`} 
+                    src={`https://store-api.softclub.tj/images/${e.images}`} 
                     alt={dataById?.productName} 
                     className="w-full h-full object-contain"
                   />
@@ -81,7 +81,7 @@ const InfoProduct = () => {
               return (
                 <div>
                   <img 
-                    src={`http://37.27.29.18:8002/images/${e.images}`} 
+                    src={`https://store-api.softclub.tj/images/${e.images}`} 
                     alt={dataById?.productName} 
                     className="w-full h-full object-contain"
                   />
@@ -97,7 +97,7 @@ const InfoProduct = () => {
               return (
                 <div>
                   <img 
-                    src={`http://37.27.29.18:8002/images/${e.images}`} 
+                    src={`https://store-api.softclub.tj/images/${e.images}`} 
                     alt={dataById?.productName} 
                     className="w-full h-full object-contain"
                   />
@@ -186,7 +186,7 @@ const InfoProduct = () => {
               return (
                 <div>
                   <img 
-                    src={`http://37.27.29.18:8002/images/${e.images}`} 
+                    src={`https://store-api.softclub.tj/images/${e.images}`} 
                     alt={dataById?.productName} 
                     className="w-full h-full object-contain"
                   />
@@ -201,7 +201,7 @@ const InfoProduct = () => {
               return (
                 <div>
                   <img 
-                    src={`http://37.27.29.18:8002/images/${e.images}`} 
+                    src={`https://store-api.softclub.tj/images/${e.images}`} 
                     alt={dataById?.productName} 
                     className="w-full h-full object-contain"
                   />
@@ -215,7 +215,7 @@ const InfoProduct = () => {
               return (
                 <div>
                   <img 
-                    src={`http://37.27.29.18:8002/images/${e.images}`} 
+                    src={`https://store-api.softclub.tj/images/${e.images}`} 
                     alt={dataById?.productName} 
                     className="w-full h-full object-contain"
                   />
@@ -229,7 +229,7 @@ const InfoProduct = () => {
               return (
                 <div>
                   <img 
-                    src={`http://37.27.29.18:8002/images/${e.images}`} 
+                    src={`https://store-api.softclub.tj/images/${e.images}`} 
                     alt={dataById?.productName} 
                     className="w-full h-full object-contain"
                   />
@@ -243,7 +243,7 @@ const InfoProduct = () => {
               return (
                 <div>
                   <img 
-                    src={`http://37.27.29.18:8002/images/${e.images}`} 
+                    src={`https://store-api.softclub.tj/images/${e.images}`} 
                     alt={dataById?.productName} 
                     className="w-full h-full object-contain"
                   />

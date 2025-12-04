@@ -1,8 +1,6 @@
 import { Checkbox, Input, Radio } from 'antd'
 import React, { useEffect } from 'react'
 import '../index.css'
-import img1 from '../images/mini (1).svg'
-import img2 from '../images/mini (2).svg'
 import img3 from '../images/cart.svg'
 import BtnRed from '../components/btnRed'
 import { useDispatch, useSelector } from 'react-redux'
@@ -61,7 +59,7 @@ const Check = () => {
               <div key={item?.id}>
                 <div className='flex items-center justify-between'>
                   <div className='flex items-center gap-[10px]'>
-                    <img className='w-25 h-20' src={`http://37.27.29.18:8002/images/${item.product.image}`} alt="" />
+                    <img className='w-25 h-20' src={`https://store-api.softclub.tj/images/${item.product.image}`} alt="" />
                     <span>{item?.product?.productName}</span>
                   </div>
                   <p>${item?.product?.price * item.quantity}</p>
@@ -141,7 +139,7 @@ const Check = () => {
               <div key={item?.id}>
                 <div className='flex items-center justify-between'>
                   <div className='flex items-center gap-[10px]'>
-                    <img className='w-20 h-15' src={`http://37.27.29.18:8002/images/${item.product.image}`} alt="" />
+                    <img className='w-20 h-15' src={`https://store-api.softclub.tj/images/${item.product.image}`} alt="" />
                     <span>{item?.product?.productName}</span>
                   </div>
                   <p>${item?.product?.price * item.quantity}</p>

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUser } from '../reducers/products/product'
 import { addCart, getCart } from '../reducers/cart/cart'
 
+
 const Section3 = () => {
   const { data } = useSelector((state) => state.product)
   const dispatch = useDispatch()
@@ -52,7 +53,7 @@ const Section3 = () => {
                 <div className='flex justify-center mt-[-30px]'>
                   <img 
                     className='w-40 h-40 object-contain'
-                    src={`http://37.27.29.18:8002/images/${product.image}`}
+                    src={`https://store-api.softclub.tj/images/${product.image}`}
                     alt={product.productName}
                   />
                 </div>
@@ -110,7 +111,7 @@ const Section3 = () => {
                 <div className='flex justify-center mt-[-30px]'>
                   <img 
                     className='w-40 h-40 object-contain'
-                    src={`http://37.27.29.18:8002/images/${product.image}`}
+                    src={`https://store-api.softclub.tj/images/${product.image}`}
                     alt={product.productName}
                   />
                 </div>
